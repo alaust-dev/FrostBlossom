@@ -3,7 +3,7 @@ package de.alaust.frostblossommc.item
 import org.bukkit.inventory.ItemStack
 
 abstract class CustomItem(
-    private val itemStack: ItemStack
+    protected val itemStack: ItemStack
 ) {
 
     fun isSimilarTo(similarStack: ItemStack): Boolean {
