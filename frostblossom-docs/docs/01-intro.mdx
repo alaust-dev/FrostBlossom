@@ -1,0 +1,47 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# FrostBlossomMC
+
+FrostBlossomMC is a plugin framework for Minecraft that lets developers easily add new items to the game. With a set of
+tools and APIs, developers can create weapons, tools, and cosmetic items with unique properties. FrostBlossomMC is
+designed exclusively for adding new items and does not support any other modifications to the game.
+
+## Getting Started
+
+Get started by **creating a new minecraft plugin**.
+
+Or **checkout the example project**.
+
+### Initialize the FrostBlossomMC Framework
+To initialize this framework you just need to add a line to your `onEnable` method. The framework will scan for
+`@FrostBlossomMC` annotated classes via reflections.
+
+:::warning
+
+For larger projects with a lot of classes it is not recommended to set the root package as path to scan for
+`@FrostBlossomMC` annotated classes. Think about to create a dedicated `frostblossom` package
+
+:::
+
+<Tabs>
+    <TabItem value="Kotlin" label="Kotlin" default>
+        ```kotlin title="Plugin.kt"
+        override fun onEnable() {
+            FrostBlossomMC.initialize(this, "de.alaust.frostblossommc.example")
+        }
+        ```
+    </TabItem>
+    <TabItem value="Java" label="Java">
+        ```java title="Plugin.java"
+        @Override
+        public void onEnable() {
+            FrostBlossomMC.Companion.initialise(this, "de.alaust.frostblossommc.example");
+        }
+        ```
+    </TabItem>
+</Tabs>

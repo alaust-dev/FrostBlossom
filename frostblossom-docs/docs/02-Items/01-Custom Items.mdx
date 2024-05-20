@@ -1,0 +1,46 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+One of the key features of this framework is to create easily new items. The main goal was to reduce a lot of boilerplate
+code in Minecraft plugins.
+
+For example the simplest way to create a new item could be the following:
+<Tabs>
+    <TabItem value="Kotlin" label="Kotlin" default>
+        ```kotlin title="FrostBlossomItem.kt"
+        @FrostBlossom
+        class FrostBlossomItem : CustomItem(
+            ItemStackBuilder(Material.LILY_PAD)
+                .setName("FrostBlossomMC")
+                .setCustomModelData(1)
+                .build()
+        )
+        ```
+    </TabItem>
+    <TabItem value="Java" label="Java">
+        ```java title="FrostBlossomItem.java"
+        @FrostBlossom
+        public class FrostBlossomItem extends CustomItem {
+            public FrostBlossomItem() {
+                super(new ItemStackBuilder(Material.LILY_PAD)
+                        .setName("FrostBlossomMC")
+                        .setCustomModelData(1)
+                        .build());
+            }
+        }
+        ```
+    </TabItem>
+</Tabs>
+
+Obviously you won't be able to do much with it and for this reason there are multiple interfaces you can add to implement
+logic to your item. The following interfaces you can add to your custom item:
+
+- Consumable
+- Craftable
+- BlockDroppable
+- EntityDroppable
+- Interactable
