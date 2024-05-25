@@ -4,21 +4,23 @@ import de.alaust.frostblossommc.annotation.FrostBlossom
 import de.alaust.frostblossommc.item.CustomItem
 import de.alaust.frostblossommc.item.ItemManager
 import de.alaust.frostblossommc.item.droppable.block.BlockBreakListener
-import de.alaust.frostblossommc.item.interactable.InteractListener
+import de.alaust.frostblossommc.item.droppable.entity.EntityDeathListener
 import org.bukkit.Bukkit
 import org.bukkit.plugin.java.JavaPlugin
 import org.reflections.Reflections
 
 class FrostBlossomMC {
     companion object {
-        private val itemManager = ItemManager()
+        private val blockBreakListener = BlockBreakListener()
+        private val entityDeathListener = EntityDeathListener()
+        private val itemManager = ItemManager(blockBreakListener, entityDeathListener)
 
         fun initialise(plugin: JavaPlugin, scanPath: String) {
             scanForFrostBlossomClasses(scanPath)
 
             val pluginManager = Bukkit.getPluginManager()
-            pluginManager.registerEvents(BlockBreakListener(), plugin)
-            pluginManager.registerEvents(InteractListener(), plugin)
+            pluginManager.registerEvents(blockBreakListener, plugin)
+            pluginManager.registerEvents(entityDeathListener, plugin)
         }
 
         fun instanceOf(clazz: Class<CustomItem>) = itemManager.instanceOf(clazz)

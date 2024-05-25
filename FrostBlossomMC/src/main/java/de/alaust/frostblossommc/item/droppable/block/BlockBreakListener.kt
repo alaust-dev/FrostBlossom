@@ -7,18 +7,16 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
 
 class BlockBreakListener : Listener {
-    companion object {
-        private val mappedTypes = HashMap<Material, ArrayList<BlockDropData>>()
+    private val mappedTypes = HashMap<Material, ArrayList<BlockDropData>>()
 
-        fun registerBlockDropItem(blockDroppable: BlockDroppable) {
-            val blockDropDataArray = blockDroppable.getBlockDropData()
-            for (blockDropData in blockDropDataArray) {
-                if (!mappedTypes.containsKey(blockDropData.sourceMaterial)) {
-                    mappedTypes[blockDropData.sourceMaterial] = ArrayList()
-                }
-
-                mappedTypes[blockDropData.sourceMaterial]?.add(blockDropData)
+    fun registerBlockDropItem(blockDroppable: BlockDroppable) {
+        val blockDropDataArray = blockDroppable.getBlockDropData()
+        for (blockDropData in blockDropDataArray) {
+            if (!mappedTypes.containsKey(blockDropData.sourceMaterial)) {
+                mappedTypes[blockDropData.sourceMaterial] = ArrayList()
             }
+
+            mappedTypes[blockDropData.sourceMaterial]?.add(blockDropData)
         }
     }
 

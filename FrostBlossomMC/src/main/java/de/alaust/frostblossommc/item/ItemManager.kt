@@ -11,17 +11,20 @@ import de.alaust.frostblossommc.item.interactable.InteractListener
 import de.alaust.frostblossommc.item.interactable.Interactable
 import org.bukkit.Bukkit
 
-class ItemManager {
+class ItemManager(
+    private val blockBreakListener: BlockBreakListener,
+    private val entityDeathListener: EntityDeathListener
+) {
     private val itemInstances = HashMap<Class<CustomItem>, CustomItem>()
 
     fun registerCustomItem(customItem: CustomItem) {
         itemInstances[customItem.javaClass] = customItem
 
         if (customItem is BlockDroppable) {
-            BlockBreakListener.registerBlockDropItem(customItem)
+            blockBreakListener.registerBlockDropItem(customItem)
         }
         if (customItem is EntityDroppable) {
-            EntityDeathListener.registerEntityDropItem(customItem)
+            entityDeathListener.registerEntityDropItem(customItem)
         }
         if (customItem is Craftable) {
             for (recipe in customItem.getRecipes()) {
