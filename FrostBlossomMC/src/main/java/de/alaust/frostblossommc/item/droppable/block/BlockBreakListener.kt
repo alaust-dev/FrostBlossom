@@ -16,7 +16,8 @@ class BlockBreakListener : Listener {
                 if (!mappedTypes.containsKey(blockDropData.sourceMaterial)) {
                     mappedTypes[blockDropData.sourceMaterial] = ArrayList()
                 }
-                mappedTypes[blockDropData.sourceMaterial]!!.add(blockDropData)
+
+                mappedTypes[blockDropData.sourceMaterial]?.add(blockDropData)
             }
         }
     }
@@ -25,12 +26,12 @@ class BlockBreakListener : Listener {
     fun onBlockBreak(event: BlockBreakEvent) {
         val destroyedBlock = event.block
         val destroyedBlockType = destroyedBlock.type
-
         if (!mappedTypes.containsKey(destroyedBlockType)) {
             return
         }
 
-        for (blockDrop in mappedTypes[destroyedBlockType]!!) {
+        val blockDrops = mappedTypes[destroyedBlockType] ?: return
+        for (blockDrop in blockDrops) {
             if (blockDrop.dropPercentChance > Math.random()) {
                 val drop = ItemStack(blockDrop.dropItemStack)
 

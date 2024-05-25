@@ -30,7 +30,8 @@ class ItemManager {
         }
         if (customItem is Interactable) {
             InteractListener.registerInteractHandler {
-                if (it.item != null && customItem.isSimilarTo(it.item!!))
+                val item = it.item
+                if (item != null && customItem.isSimilarTo(item))
                     customItem.onInteract(it)
             }
         }

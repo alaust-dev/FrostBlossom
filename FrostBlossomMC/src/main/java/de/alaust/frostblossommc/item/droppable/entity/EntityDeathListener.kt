@@ -14,7 +14,8 @@ class EntityDeathListener {
                 if (!mappedTypes.containsKey(entityDropData.sourceEntity)) {
                     mappedTypes[entityDropData.sourceEntity] = ArrayList()
                 }
-                mappedTypes[entityDropData.sourceEntity]!!.add(entityDropData)
+
+                mappedTypes[entityDropData.sourceEntity]?.add(entityDropData)
             }
         }
     }
@@ -27,7 +28,8 @@ class EntityDeathListener {
             return
         }
 
-        for(mobDrop in mappedTypes[entityType]!!) {
+        val mobDrops = mappedTypes[entityType] ?: return
+        for(mobDrop in mobDrops) {
             if(mobDrop.dropPercentChance > Math.random()) {
                 diedEntity.world.dropItem(diedEntity.location, mobDrop.dropItemStack)
             }
