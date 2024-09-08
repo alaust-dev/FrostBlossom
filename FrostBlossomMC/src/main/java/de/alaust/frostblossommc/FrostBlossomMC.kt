@@ -1,6 +1,7 @@
 package de.alaust.frostblossommc
 
 import de.alaust.frostblossommc.annotation.FrostBlossom
+import de.alaust.frostblossommc.exceptions.InitializationException
 import de.alaust.frostblossommc.item.CustomItem
 import de.alaust.frostblossommc.item.ItemManager
 import de.alaust.frostblossommc.item.droppable.block.BlockBreakListener
@@ -38,6 +39,10 @@ class FrostBlossomMC {
         }
 
         private fun loadItem(clazz: Class<*>, origin: Class<*>?) {
+            if (origin == clazz) {
+                throw InitializationException("Circular dependency detected: $clazz")
+            }
+
             val customClassInstance = clazz.getDeclaredConstructor().newInstance() as CustomItem
             if (itemManager.isRegistered(customClassInstance)) {
                 return
