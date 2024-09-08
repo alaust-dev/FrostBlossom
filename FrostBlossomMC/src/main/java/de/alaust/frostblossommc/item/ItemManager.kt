@@ -10,15 +10,16 @@ import de.alaust.frostblossommc.item.droppable.entity.EntityDroppable
 import de.alaust.frostblossommc.item.interactable.InteractListener
 import de.alaust.frostblossommc.item.interactable.Interactable
 import org.bukkit.Bukkit
+import kotlin.reflect.KClass
 
 class ItemManager(
     private val blockBreakListener: BlockBreakListener,
     private val entityDeathListener: EntityDeathListener
 ) {
-    private val itemInstances = HashMap<Class<CustomItem>, CustomItem>()
+    private val itemInstances = HashMap<KClass<out CustomItem>, CustomItem>()
 
     fun registerCustomItem(customItem: CustomItem) {
-        itemInstances[customItem.javaClass] = customItem
+        itemInstances[customItem::class] = customItem
 
         if (customItem is BlockDroppable) {
             blockBreakListener.registerBlockDropItem(customItem)
@@ -46,7 +47,11 @@ class ItemManager(
         }
     }
 
-    fun instanceOf(itemClass: Class<CustomItem>): CustomItem? {
+    fun instanceOf(itemClass: KClass<CustomItem>): CustomItem? {
         return itemInstances[itemClass]
+    }
+
+    fun isRegistered(itemClass: CustomItem): Boolean {
+        return itemInstances.containsKey(itemClass::class)
     }
 }
