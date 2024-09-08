@@ -17,13 +17,9 @@ class BlockDropData private constructor(
         private var dropAmountRange: DropAmountRange = DropAmountRange(1)
     ) {
         fun sourceMaterial(sourceMaterial: Material) = apply { this.sourceMaterial = sourceMaterial }
-
-        fun dropPercentChance(dropPercentChance: Float) = apply { this.sourceMaterial }
-
+        fun dropPercentChance(dropPercentChance: Float) = apply { this.dropPercentChance = dropPercentChance }
         fun dropItemStack(dropItemStack: ItemStack) = apply { this.dropItemStack = dropItemStack }
-
         fun dropItemStackAmount(dropAmountRange: DropAmountRange) = apply { this.dropAmountRange = dropAmountRange }
-
         fun build(): BlockDropData = BlockDropData(sourceMaterial, dropPercentChance, dropItemStack, dropAmountRange)
     }
 }

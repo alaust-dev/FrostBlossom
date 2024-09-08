@@ -4,6 +4,7 @@ import org.bukkit.entity.EntityType
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityDeathEvent
+import org.bukkit.inventory.ItemStack
 
 class EntityDeathListener : Listener {
     private val mappedTypes = HashMap<EntityType, ArrayList<EntityDropData>>()
@@ -30,7 +31,10 @@ class EntityDeathListener : Listener {
         val mobDrops = mappedTypes[entityType] ?: return
         for (mobDrop in mobDrops) {
             if (mobDrop.dropPercentChance > Math.random()) {
-                diedEntity.world.dropItem(diedEntity.location, mobDrop.dropItemStack)
+                val drop = ItemStack(mobDrop.dropItemStack)
+
+                drop.amount = mobDrop.dropAmountRange.getRandom()
+                diedEntity.world.dropItem(diedEntity.location, drop)
             }
         }
     }

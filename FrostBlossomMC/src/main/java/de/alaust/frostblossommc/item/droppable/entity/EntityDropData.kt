@@ -17,8 +17,8 @@ class EntityDropData private constructor(
         private var dropItemStack: ItemStack = ItemStack(Material.AIR),
         private var dropAmountRange: DropAmountRange = DropAmountRange(1)
     ) {
-        fun sourceEntity(sourceEntity: EntityType) = apply { this.sourceEntity }
-        fun dropPercentChance(dropPercentChance: Float) = apply { this.dropPercentChance }
+        fun sourceEntity(sourceEntity: EntityType) = apply { this.sourceEntity = sourceEntity }
+        fun dropPercentChance(dropPercentChance: Float) = apply { this.dropPercentChance = dropPercentChance }
         fun dropItemStack(dropItemStack: ItemStack) = apply { this.dropItemStack = dropItemStack }
         fun dropItemStackAmount(dropAmountRange: DropAmountRange) = apply { this.dropAmountRange = dropAmountRange }
         fun build(): EntityDropData = EntityDropData(sourceEntity, dropPercentChance, dropItemStack, dropAmountRange)
