@@ -32,7 +32,7 @@ class FrostBlossomMC {
             val annotatedClasses = reflectedPackage.getTypesAnnotatedWith(FrostBlossom::class.java)
 
             for (clazz in annotatedClasses) {
-                if (clazz.superclass != CustomItem::class.java) {
+                if (clazz.superclass == CustomItem::class.java) {
                     loadItem(clazz, null)
                 }
             }
