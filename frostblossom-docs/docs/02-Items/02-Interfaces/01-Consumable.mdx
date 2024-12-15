@@ -1,0 +1,54 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+This interface is especially useful if you want to create for example a new potions to the game. This interface lets you
+implement a method where you can handle what happens when the player consumes the item and the `PlayerItemConsumeEvent`
+is called.
+
+:::info
+
+The `onConsume` method in your item **only gets called if the player holds the custom item in his hand**. You **don't
+have to implement** those checks by yourself the framework does it for you.
+
+:::
+
+<Tabs>
+    <TabItem value="Kotlin" label="Kotlin" default>
+        ```kotlin title="Juice.kt"
+        @FrostBlossom
+        class Juice : CustomItem(
+            ItemStackBuilder(Material.POTION)
+                .setName("JUICE")
+                .setCustomModelData(1)
+                .build()
+        ), Consumable {
+            override fun onConsume(event: PlayerItemConsumeEvent) {
+                event.player.sendMessage("Mhhh... delicious")
+            }
+    }
+        ```
+    </TabItem>
+    <TabItem value="Java" label="Java">
+        ```java title="Juice.java"
+        @FrostBlossom
+        public class Juice extends CustomItem implements Consumable {
+            public FrostBlossomItem() {
+                super(new ItemStackBuilder(Material.POTION)
+                        .setName("JUICE")
+                        .setCustomModelData(1)
+                        .build());
+            }
+
+            @Override
+            public void onConsume(PlayerItemConsumeEvent event) {
+                event.getPlayer().sendMessage("Mhhh... delicious");
+            }
+    }
+        ```
+    </TabItem>
+</Tabs>
+
